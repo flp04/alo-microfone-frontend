@@ -6,7 +6,9 @@
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
-    <h3>Installed CLI Plugins</h3>
+
+
+    <!-- <h3>Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
@@ -26,15 +28,51 @@
       <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
 <script>
+import EquipeDataService from "../services/EquipeDataService"
+
 export default {
   name: 'HelloWorld',
+  equipe: {
+    id: '',
+  },
   props: {
     msg: String
+  },
+  methods: {
+    saveEquipe() {
+      console.log('ei')
+      var data = {
+        nome: "Palmeiras",
+        // description: this.tutorial.description
+      };
+
+      // EquipeDataService.getAll()
+      //   .then(response => {
+      //     console.log(response.data)
+      //   })
+      //   .catch(e => {
+      //     console.log(e)
+      //   })
+
+      EquipeDataService.create(data)
+        .then(response => {
+          this.equipe.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  },
+  mounted() {
+    console.log('oi')
+    this.saveEquipe()
   }
 }
 </script>
